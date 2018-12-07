@@ -46,6 +46,17 @@
   tags:
     - sshd
 
+- block:
+  - name: Check anything listening on new port {{ sshd.Port }}
+    shell: "ss -tulpn | grep LISTEN | grep {{ sshd.Port }}"
+    become: yes
+    become_method: sudo
+    register: listening
+
+  - name: Debug who is listening on new port {{ sshd.Port }}
+    debug: var=listening.stdout
+  ignore_errors: true
+
 - name: Service enabled and running
   service:
     name: "{{ sshd_service }}"
