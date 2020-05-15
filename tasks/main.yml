@@ -25,6 +25,16 @@
   tags:
     - sshd
 
+- name: Register our custom SSH port "{{ sshd.Port }}" with SELinux
+  become: yes
+  become_method: sudo
+  seport:
+    ports: "{{ sshd.Port }}"
+    proto: tcp
+    setype: ssh_port_t
+    state: present
+  when: ansible_os_family == "RedHat"
+
 - name: Run directory
   file:
     path: /var/run/sshd
