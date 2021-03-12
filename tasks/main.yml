@@ -33,7 +33,11 @@
     proto: tcp
     setype: ssh_port_t
     state: present
-  when: ansible_os_family == "RedHat"
+  # `seport` fails if SELinux is not enabled:
+  # https://github.com/yugabyte/yugabyte-db/issues/7315
+  # `ansible_selinux` can be either a boolean or a dictionary:
+  # https://github.com/ansible/ansible/issues/18692
+  when: ansible_selinux is defined and ansible_selinux != False and ansible_selinux.status == 'enabled'
 
 - name: Run directory
   file:
