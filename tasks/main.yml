@@ -16,12 +16,10 @@
   tags:
     - sshd
 
-- name: Installed
-  action: >
-    {{ ansible_pkg_mgr }}
-    name="{{ item }}"
-    state=installed
-  with_items: "{{ sshd_packages }}"
+- name: Install ssh packages
+  package:
+    name: "{{ sshd_packages }}"
+    state: present
   tags:
     - sshd
 
