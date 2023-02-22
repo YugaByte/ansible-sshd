@@ -2,7 +2,7 @@
 sshd_packages:
   - openssh
   - openssh-server
-sshd_sftp_server: /usr/libexec/openssh/sftp-server
+sshd_sftp_server: /usr/lib/ssh/sftp-server
 sshd_defaults:
   HostKey:
     - /etc/ssh/ssh_host_rsa_key
