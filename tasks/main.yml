@@ -20,6 +20,7 @@
   package:
     name: "{{ sshd_packages }}"
     state: present
+    lock_timeout: 600
   tags:
     - sshd
 
